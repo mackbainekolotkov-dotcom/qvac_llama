@@ -289,6 +289,66 @@ class Q4_1(__Quant, qtype=GGMLQuantizationType.Q4_1):
         return (d * qs) + m
 
 
+class Q4_HQQ(__Quant, qtype=GGMLQuantizationType.Q4_HQQ):
+    # same layout as Q4_1, but the block stores (scale, zero) in quantized space:
+    # scale = 15/(max-min), zero = -min*scale, and w = (q - zero)/scale
+    @classmethod
+    def quantize_blocks(cls, blocks: np.ndarray) -> np.ndarray:
+        n_blocks = blocks.shape[0]
+
+        max = blocks.max(axis=-1, keepdims=True)
+        min = blocks.min(axis=-1, keepdims=True)
+
+        with np.errstate(divide="ignore", invalid="ignore"):
+            scale = np.where(max > min, 15 / (max - min), np.float32(1))
+
+        # cap the scale so zero = -min*scale also stays inside the f16 range
+        amin = np.abs(min)
+        with np.errstate(divide="ignore"):
+            smax = np.where(amin > 0, np.float32(65504) / amin, np.float32(65504))
+        scale = np.minimum(scale, smax).clip(max=np.float32(65504))
+
+        # zero comes from the unrounded scale, exactly as the C encoder computes it,
+        # then both are stored and read back so the encoder sees the decoder's values
+        zero = -min * scale
+        scale = scale.astype(np.float16).astype(np.float32)
+        zero = zero.astype(np.float16).astype(np.float32)
+
+        # the C encoder contracts x*scale + zero into an fma, so it rounds once, not twice.
+        # do the product in f64 and round once to match, or a value sitting on a half moves
+        v = (blocks.astype(np.float64) * scale.astype(np.float64) + zero.astype(np.float64)).astype(np.float32)
+
+        # roundf() sends halves away from zero, np.round sends them to even
+        fl = np.floor(v)
+        qs = (fl + (v - fl >= np.float32(0.5))).astype(np.int32).clip(0, 15).astype(np.uint8)
+
+        qs = qs.reshape((n_blocks, 2, cls.block_size // 2))
+        qs = qs[..., 0, :] | (qs[..., 1, :] << np.uint8(4))
+
+        scale = scale.astype(np.float16).view(np.uint8)
+        zero = zero.astype(np.float16).view(np.uint8)
+
+        return np.concatenate([scale, zero, qs], axis=-1)
+
+    @classmethod
+    def dequantize_blocks(cls, blocks: np.ndarray) -> np.ndarray:
+        n_blocks = blocks.shape[0]
+
+        scale, rest = np.hsplit(blocks, [2])
+        zero, qs = np.hsplit(rest, [2])
+
+        scale = scale.view(np.float16).astype(np.float32)
+        zero = zero.view(np.float16).astype(np.float32)
+
+        with np.errstate(divide="ignore"):
+            inv = np.where(scale == 0, np.float32(0), 1 / scale)
+
+        qs = qs.reshape((n_blocks, -1, 1, cls.block_size // 2)) >> np.array([0, 4], dtype=np.uint8).reshape((1, 1, 2, 1))
+        qs = (qs & np.uint8(0x0F)).reshape((n_blocks, -1)).astype(np.float32)
+
+        return (qs - zero) * inv
+
+
 class Q5_0(__Quant, qtype=GGMLQuantizationType.Q5_0):
     @classmethod
     def quantize_blocks(cls, blocks: np.ndarray) -> np.ndarray:
