@@ -593,6 +593,7 @@ struct common_params {
     struct common_params_model mmproj;
     bool mmproj_use_gpu = true;                 // use GPU for multimodal model
     ggml_backend_dev_t mmproj_device = nullptr; // GPU device to use for multimodal model
+    std::string mmproj_backend = "auto";        // backend for the projector: auto, cpu, or a device name
     bool no_mmproj = false;                     // explicitly disable multimodal model
     std::vector<std::string> image;             // path to image file(s) ; TODO: change the name to "media"
     int image_min_tokens = -1;
@@ -762,6 +763,9 @@ struct common_params {
 void common_init();
 
 void common_params_print_info(const common_params & params, bool print_devices = true);
+
+// one line log of the devices the projector and the language model bound to
+void common_log_mmproj_devices(const common_params & params);
 std::string common_params_get_system_info(const common_params & params);
 
 bool parse_cpu_range(const std::string & range, bool(&boolmask)[GGML_MAX_N_THREADS]);

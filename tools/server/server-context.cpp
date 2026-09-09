@@ -1058,6 +1058,7 @@ private:
             // progress callback
             mparams.progress_callback           = load_progress_callback;
             mparams.progress_callback_user_data = &load_progress_mmproj;
+            common_log_mmproj_devices(params_base);
         }
 
         // optionally get the memory usage of mmproj

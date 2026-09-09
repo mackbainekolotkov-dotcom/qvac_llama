@@ -23,6 +23,7 @@
 #endif
 
 #include <algorithm>
+#include <cctype>
 #include <cinttypes>
 #include <climits>
 #include <cmath>
@@ -1134,6 +1135,39 @@ static std::vector<ggml_backend_dev_t> parse_device_list(const std::string & val
         devices.push_back(nullptr);
     }
     return devices;
+}
+
+static std::string str_to_lower(const std::string & s) {
+    std::string res = s;
+    std::transform(res.begin(), res.end(), res.begin(), [](unsigned char c) { return std::tolower(c); });
+    return res;
+}
+
+// case insensitive lookup of a device by name, used by --mmproj-backend
+static ggml_backend_dev_t find_device_by_name(const std::string & name) {
+    ggml_backend_load_all();
+
+    const std::string want = str_to_lower(name);
+
+    for (size_t i = 0; i < ggml_backend_dev_count(); ++i) {
+        auto * dev = ggml_backend_dev_get(i);
+        if (str_to_lower(ggml_backend_dev_name(dev)) == want) {
+            return dev;
+        }
+    }
+
+    return nullptr;
+}
+
+static std::string all_device_names() {
+    ggml_backend_load_all();
+
+    std::string res = "auto, cpu";
+    for (size_t i = 0; i < ggml_backend_dev_count(); ++i) {
+        res += std::string(", ") + ggml_backend_dev_name(ggml_backend_dev_get(i));
+    }
+
+    return res;
 }
 
 void common_print_available_devices() {
@@ -2623,6 +2657,44 @@ common_params_context common_params_parser_init(common_params & params, llama_ex
             params.mmproj_device  = devices.front();
         }
     ).set_examples(mmproj_examples).set_env("MTMD_BACKEND_DEVICE")); // no LLAMA_ARG_ prefix for backward compatibility reason
+    add_opt(common_arg(
+        {"--mmproj-backend"}, "VALUE",
+        "backend used by the multimodal projector only, the language model is not affected\n"
+        "accepts auto (default), cpu, or a device name from --list-devices, case insensitive",
+        [](common_params & params, const std::string & value) {
+            const std::string v = str_to_lower(value);
+
+            if (v == "auto") {
+                params.mmproj_backend = "auto";
+                params.mmproj_use_gpu = true;
+                params.mmproj_device  = nullptr;
+                return;
+            }
+
+            if (v == "cpu") {
+                params.mmproj_backend = "cpu";
+                params.mmproj_use_gpu = false;
+                params.mmproj_device  = nullptr;
+                return;
+            }
+
+            auto * dev = find_device_by_name(value);
+            if (!dev) {
+                throw std::invalid_argument(string_format("unknown device \"%s\", valid values are: %s", value.c_str(), all_device_names().c_str()));
+            }
+
+            if (ggml_backend_dev_type(dev) == GGML_BACKEND_DEVICE_TYPE_CPU) {
+                params.mmproj_backend = ggml_backend_dev_name(dev);
+                params.mmproj_use_gpu = false;
+                params.mmproj_device  = nullptr;
+                return;
+            }
+
+            params.mmproj_backend = ggml_backend_dev_name(dev);
+            params.mmproj_use_gpu = true;
+            params.mmproj_device  = dev;
+        }
+    ).set_examples(mmproj_examples).set_env("LLAMA_ARG_MMPROJ_BACKEND"));
     add_opt(common_arg(
         {"--image", "--audio", "--video"}, "FILE",
         "path to an image, audio, or video file. use with multimodal models, use comma-separated values for multiple files\n",

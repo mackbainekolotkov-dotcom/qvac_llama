@@ -394,6 +394,18 @@ void common_init() {
     llama_log_set(common_log_default_callback, NULL);
 }
 
+void common_log_mmproj_devices(const common_params & params) {
+    const std::string dev_proj = params.mmproj_use_gpu
+        ? (params.mmproj_device ? ggml_backend_dev_name(params.mmproj_device) : "auto")
+        : "CPU";
+
+    const std::string dev_model = params.devices.empty() || params.devices.front() == nullptr
+        ? string_format("auto (-ngl %d)", params.n_gpu_layers)
+        : ggml_backend_dev_name(params.devices.front());
+
+    LOG_INF("%s: projector device: %s | language model device: %s\n", __func__, dev_proj.c_str(), dev_model.c_str());
+}
+
 void common_params_print_info(const common_params & params, bool print_devices) {
 #ifdef NDEBUG
     const char * build_type = "";
