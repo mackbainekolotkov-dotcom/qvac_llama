@@ -1,5 +1,10 @@
 # llama.cpp
 
+> **This is a fork.** It adds the `Q4_HQQ` 4-bit type (weights and KV cache) and the
+> `--mmproj-backend` flag, on top of upstream commit `0b5be7e4`.
+> Start at [`docs/qvac/README.md`](docs/qvac/README.md) for the report, the tables and the
+> reproduction steps. Everything upstream below is unchanged.
+
 ![llama](https://raw.githubusercontent.com/ggml-org/llama.brand/refs/heads/master/cover/llama-cpp/cover-llama-cpp-dark.svg)
 
 <div align="center">
