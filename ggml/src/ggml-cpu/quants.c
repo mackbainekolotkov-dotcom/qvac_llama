@@ -38,6 +38,10 @@ void quantize_row_q4_1(const float * GGML_RESTRICT x, void * GGML_RESTRICT y, in
     quantize_row_q4_1_ref(x, y, k);
 }
 
+void quantize_row_q4_hqq(const float * GGML_RESTRICT x, void * GGML_RESTRICT y, int64_t k) {
+    quantize_row_q4_hqq_ref(x, y, k);
+}
+
 void quantize_row_q5_0(const float * GGML_RESTRICT x, void * GGML_RESTRICT y, int64_t k) {
     quantize_row_q5_0_ref(x, y, k);
 }
@@ -359,6 +363,49 @@ void ggml_vec_dot_nvfp4_q8_0_generic(int n, float * GGML_RESTRICT s, size_t bs, 
             sumf += dy * d * (sumi_lo + sumi_hi);
         }
     }
+    *s = sumf;
+}
+
+// q4_hqq keeps (scale, zero) in quantized space: w = (q - zero)/scale
+// so the dot product needs the sum of the q8_0 quants, which block_q8_0 does not store
+void ggml_vec_dot_q4_hqq_q8_0_generic(int n, float * GGML_RESTRICT s, size_t bs, const void * GGML_RESTRICT vx, size_t bx, const void * GGML_RESTRICT vy, size_t by, int nrc) {
+    const int qk = QK8_0;
+    const int nb = n / qk;
+
+    assert(n % qk == 0);
+    assert(nrc == 1);
+    UNUSED(nrc);
+    UNUSED(bx);
+    UNUSED(by);
+    UNUSED(bs);
+
+    const block_q4_hqq * GGML_RESTRICT x = vx;
+    const block_q8_0   * GGML_RESTRICT y = vy;
+
+    float sumf = 0;
+
+    for (int ib = 0; ib < nb; ++ib) {
+        int sumq = 0; // sum of q_i * s_i
+        int sums = 0; // sum of s_i
+
+        for (int j = 0; j < qk/2; ++j) {
+            const int v0 = (x[ib].qs[j] & 0x0F);
+            const int v1 = (x[ib].qs[j] >>   4);
+
+            const int s0 = y[ib].qs[j];
+            const int s1 = y[ib].qs[j + qk/2];
+
+            sumq += v0*s0 + v1*s1;
+            sums += s0 + s1;
+        }
+
+        const float scale = GGML_CPU_FP16_TO_FP32(x[ib].scale);
+        const float zero  = GGML_CPU_FP16_TO_FP32(x[ib].zero);
+        const float is    = scale != 0.0f ? 1.0f/scale : 0.0f;
+
+        sumf += GGML_CPU_FP16_TO_FP32(y[ib].d)*is*(sumq - zero*sums);
+    }
+
     *s = sumf;
 }
 
