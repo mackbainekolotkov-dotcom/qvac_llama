@@ -7,6 +7,8 @@
 #include <assert.h>
 #include <math.h>
 #include <stdio.h>
+#include <algorithm>
+#include <random>
 #include <string>
 #include <vector>
 
@@ -200,6 +202,117 @@ static int test_vec_dot_q(bool verbose) {
     return num_failed;
 }
 
+// synthetic blocks that exercise the q4_hqq numerical edge cases
+static const char * q4_hqq_case_name(int c) {
+    switch (c) {
+        case 0: return "uniform noise";
+        case 1: return "gaussian";
+        case 2: return "all zero";
+        case 3: return "constant non-zero";
+        case 4: return "single outlier";
+        case 5: return "extreme dynamic range";
+        case 6: return "denormals";
+        case 7: return "narrow band far from zero";
+        case 8: return "huge magnitude (scale underflow)";
+    }
+    return "?";
+}
+
+static void q4_hqq_fill_case(int c, size_t n, float * dst) {
+    std::mt19937 rng(1234 + c);
+    std::uniform_real_distribution<float> uni(-1.0f, 1.0f);
+    std::normal_distribution<float> gauss(0.0f, 1.0f);
+
+    for (size_t i = 0; i < n; i++) {
+        switch (c) {
+            case 0: dst[i] = uni(rng); break;
+            case 1: dst[i] = gauss(rng); break;
+            case 2: dst[i] = 0.0f; break;
+            case 3: dst[i] = 0.37f; break;
+            // one large value per block, the rest small
+            case 4: dst[i] = (i % 32) == 7 ? 100.0f : 0.01f*gauss(rng); break;
+            case 5: dst[i] = (i % 2) == 0 ? 1e-6f : 1e6f; break;
+            case 6: dst[i] = 1e-40f*(1.0f + (i % 32)); break;
+            // range so small that 15/(max-min) does not fit in fp16
+            case 7: dst[i] = 1000.0f + 1e-6f*(i % 32); break;
+            // range so wide that 15/(max-min) underflows the f16 grid to zero
+            case 8: dst[i] = 1e13f*(1.0f + 0.01f*(i % 32)); break;
+        }
+    }
+}
+
+// the round trip must stay finite and must not lose to q4_1, which has the same block layout
+static int test_q4_hqq_edge_cases(bool verbose) {
+    const auto * hqq     = ggml_get_type_traits(GGML_TYPE_Q4_HQQ);
+    const auto * hqq_cpu = ggml_get_type_traits_cpu(GGML_TYPE_Q4_HQQ);
+    const auto * q41     = ggml_get_type_traits(GGML_TYPE_Q4_1);
+    const auto * q41_cpu = ggml_get_type_traits_cpu(GGML_TYPE_Q4_1);
+
+    const size_t test_size = 32*64;
+
+    std::vector<float>   src(test_size);
+    std::vector<uint8_t> tmp_q(2*test_size);
+    std::vector<float>   out_hqq(test_size);
+    std::vector<float>   out_q41(test_size);
+
+    int num_failed = 0;
+
+    for (int c = 0; c < 9; c++) {
+        q4_hqq_fill_case(c, test_size, src.data());
+
+        hqq_cpu->from_float(src.data(), tmp_q.data(), test_size);
+        hqq->to_float(tmp_q.data(), out_hqq.data(), test_size);
+
+        q41_cpu->from_float(src.data(), tmp_q.data(), test_size);
+        q41->to_float(tmp_q.data(), out_q41.data(), test_size);
+
+        size_t n_bad = 0;
+        float  amax  = 0.0f;
+        for (size_t i = 0; i < test_size; i++) {
+            if (!std::isfinite(out_hqq[i])) {
+                n_bad++;
+            }
+            amax = std::max(amax, fabsf(src[i]));
+        }
+
+        const float rmse_hqq = array_rmse(src.data(), out_hqq.data(), test_size);
+        const float rmse_q41 = array_rmse(src.data(), out_q41.data(), test_size);
+
+        // 1. the round trip must never produce a non-finite value
+        bool failed = n_bad > 0 || !std::isfinite(rmse_hqq);
+
+        // 2. the error must stay bounded by the dynamic range of the input
+        failed = failed || !(rmse_hqq <= amax + 1e-9f);
+
+        // 3. must not lose to q4_1 by more than the reciprocal storage costs. skip q4_1 when
+        //    it is not finite itself, which happens on case 5
+        if (c != 7 && c != 8 && std::isfinite(rmse_q41)) {
+            failed = failed || !(rmse_hqq <= rmse_q41*1.10f + 1e-9f);
+        }
+
+        // 4. narrow band: absolute error instead. (q-zero)/scale carries an offset of |min|,
+        //    so f16 precision floors the error near |min|*2^-11 however narrow the band is
+        if (c == 7) {
+            float amin = INFINITY;
+            for (size_t i = 0; i < test_size; i++) {
+                amin = std::min(amin, fabsf(src[i]));
+            }
+            failed = failed || !(rmse_hqq <= amin*(1.0f/1024.0f) + 1e-9f);
+        }
+
+        // case 8 gets assertions 1 and 2 only: a block spanning 3e12 needs a scale f16 cannot
+        // hold, so dequantize_row_q4_hqq only promises finiteness through its s != 0 guard
+
+        num_failed += failed;
+        if (failed || verbose) {
+            printf("q4_hqq edge case %-34s %s (non-finite=%zu rmse=%g q4_1 rmse=%g)\n",
+                   q4_hqq_case_name(c), RESULT_STR[failed], n_bad, rmse_hqq, rmse_q41);
+        }
+    }
+
+    return num_failed;
+}
+
 int main(int argc, char * argv[]) {
     bool verbose = false;
 
@@ -221,6 +334,7 @@ int main(int argc, char * argv[]) {
 
     num_failed += test_vec_dot_f32(verbose);
     num_failed += test_vec_dot_q(verbose);
+    num_failed += test_q4_hqq_edge_cases(verbose);
 
     if (num_failed || verbose) {
         printf("%d tests failed\n", num_failed);
