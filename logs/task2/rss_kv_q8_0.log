@@ -1,0 +1,56 @@
+### cmd: /usr/bin/time -l llama-cli -m models/qvac/gguf/llama-3.2-3b-q4_hqq.gguf -c 8192 -fa on --cache-type-k q8_0 --cache-type-v q8_0 --no-mmap
+
+
+Loading model... |-\|/-\| 
+
+▄▄ ▄▄
+██ ██
+██ ██  ▀▀█▄ ███▄███▄  ▀▀█▄    ▄████ ████▄ ████▄
+██ ██ ▄█▀██ ██ ██ ██ ▄█▀██    ██    ██ ██ ██ ██
+██ ██ ▀█▄██ ██ ██ ██ ▀█▄██ ██ ▀████ ████▀ ████▀
+                                    ██    ██
+                                    ▀▀    ▀▀
+
+build      : b11-d1d1132
+model      : models/qvac/gguf/llama-3.2-3b-q4_hqq.gguf
+ftype      : Q4_HQQ - 5.0 bpw
+modalities : text
+
+available commands:
+  /exit or Ctrl+C     stop or exit
+  /regen              regenerate the last response
+  /clear              clear the chat history
+  /read <file>        add a text file
+  /glob <pattern>     add text files using globbing pattern
+
+
+
+> What is bitcoin?
+Bitcoin is a digital currency that uses cryptography for secure financial transactions. It was created in 2009 by an anonymous individual or group using the pseudonym Satoshi Nakamoto. Bitcoin operates independently of central banks and traditional financial systems, allowing for peer-to-peer transactions without the need for intermediaries like banks.
+
+Here's a brief overview of how it works:
+
+1. **Mining**: New bitcoins are created through a process called mining, which involves solving complex mathematical problems. Miners use powerful computers to solve these
+
+[ Prompt: 48.5 t/s | Generation: 42.4 t/s ]
+
+
+Exiting...
+        4.07 real        25.00 user         0.47 sys
+          3528507392  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+              220278  page reclaims
+                  89  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                 119  messages sent
+                 118  messages received
+                   0  signals received
+                 158  voluntary context switches
+               16425  involuntary context switches
+        420773393344  instructions retired
+         84718326199  cycles elapsed
+          3484683480  peak memory footprint

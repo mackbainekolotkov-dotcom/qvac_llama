@@ -1,0 +1,57 @@
+### cmd: /usr/bin/time -l llama-cli -m models/qvac/gguf/llama-3.2-3b-q4_hqq.gguf -c 8192 -fa on --cache-type-k f16 --cache-type-v f16 --no-mmap
+
+
+Loading model... |-\|/-\|/-\|/- 
+
+▄▄ ▄▄
+██ ██
+██ ██  ▀▀█▄ ███▄███▄  ▀▀█▄    ▄████ ████▄ ████▄
+██ ██ ▄█▀██ ██ ██ ██ ▄█▀██    ██    ██ ██ ██ ██
+██ ██ ▀█▄██ ██ ██ ██ ▀█▄██ ██ ▀████ ████▀ ████▀
+                                    ██    ██
+                                    ▀▀    ▀▀
+
+build      : b11-d1d1132
+model      : models/qvac/gguf/llama-3.2-3b-q4_hqq.gguf
+ftype      : Q4_HQQ - 5.0 bpw
+modalities : text
+
+available commands:
+  /exit or Ctrl+C     stop or exit
+  /regen              regenerate the last response
+  /clear              clear the chat history
+  /read <file>        add a text file
+  /glob <pattern>     add text files using globbing pattern
+
+
+
+> What is bitcoin?
+Bitcoin is a digital currency that uses cryptography for security and is decentralized, meaning it's not controlled by any government or financial institution. It was created in 2009 by an individual or group of individuals using the pseudonym Satoshi Nakamoto.
+
+Here's a brief overview of how bitcoin works:
+
+1. **Decentralized network**: Bitcoin is stored on a public ledger called the blockchain, which is maintained by a network of computers around the world. This decentralized network allows for secure and transparent transactions.
+2
+
+[ Prompt: 46.7 t/s | Generation: 42.3 t/s ]
+
+
+Exiting...
+        6.39 real        25.26 user         2.77 sys
+          3583410176  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+              340290  page reclaims
+                1887  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                 125  messages sent
+                 124  messages received
+                   0  signals received
+                 375  voluntary context switches
+               37552  involuntary context switches
+        429909832456  instructions retired
+         95456685778  cycles elapsed
+          3931688464  peak memory footprint

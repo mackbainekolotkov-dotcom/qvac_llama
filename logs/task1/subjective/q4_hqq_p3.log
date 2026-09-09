@@ -1,0 +1,39 @@
+### 2026-08-31T05:54:35Z
+### cwd: .
+### cmd: build/bin/llama-cli -m models/qvac/gguf/llama-3.2-3b-q4_hqq.gguf -p Explain the difference between TCP and UDP in three sentences. -n 100 -t 8 -ngl 99 --seed 42 -st
+
+
+
+Loading model... |-\|/-\|/-\|/-\|/-\|/ 
+
+▄▄ ▄▄
+██ ██
+██ ██  ▀▀█▄ ███▄███▄  ▀▀█▄    ▄████ ████▄ ████▄
+██ ██ ▄█▀██ ██ ██ ██ ▄█▀██    ██    ██ ██ ██ ██
+██ ██ ▀█▄██ ██ ██ ██ ▀█▄██ ██ ▀████ ████▀ ████▀
+                                    ██    ██
+                                    ▀▀    ▀▀
+
+build      : b9-9b586d5
+model      : models/qvac/gguf/llama-3.2-3b-q4_hqq.gguf
+ftype      : Q4_HQQ - 5.0 bpw
+modalities : text
+
+available commands:
+  /exit or Ctrl+C     stop or exit
+  /regen              regenerate the last response
+  /clear              clear the chat history
+  /read <file>        add a text file
+  /glob <pattern>     add text files using globbing pattern
+
+
+
+> Explain the difference between TCP and UDP in three sentences.
+Here are three sentences explaining the difference between TCP and UDP:
+
+TCP (Transmission Control Protocol) is a connection-oriented protocol that ensures reliable, error-checked data transfer between devices by establishing a dedicated connection before data is sent and verifying the integrity of the data upon receipt. In contrast, UDP (User Datagram Protocol) is a connectionless protocol that allows for faster data transfer but does not guarantee delivery or order of packets, making it suitable for applications where speed is more important than reliability. This fundamental difference in approach
+
+[ Prompt: 390.9 t/s | Generation: 38.1 t/s ]
+
+
+Exiting...

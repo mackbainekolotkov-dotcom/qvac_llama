@@ -1,0 +1,33 @@
+
+
+Loading model... |-\|/-\|/-\| 
+
+▄▄ ▄▄
+██ ██
+██ ██  ▀▀█▄ ███▄███▄  ▀▀█▄    ▄████ ████▄ ████▄
+██ ██ ▄█▀██ ██ ██ ██ ▄█▀██    ██    ██ ██ ██ ██
+██ ██ ▀█▄██ ██ ██ ██ ▀█▄██ ██ ▀████ ████▀ ████▀
+                                    ██    ██
+                                    ▀▀    ▀▀
+
+build      : b5-d47e758
+model      : models/qvac/gguf/llama-3.2-3b-q4_hqq.gguf
+ftype      : Q4_HQQ - 5.0 bpw
+modalities : text
+
+available commands:
+  /exit or Ctrl+C     stop or exit
+  /regen              regenerate the last response
+  /clear              clear the chat history
+  /read <file>        add a text file
+  /glob <pattern>     add text files using globbing pattern
+
+
+
+> hi
+How
+
+[ Prompt: 416.1 t/s | Generation: 0.0 t/s ]
+
+
+Exiting...

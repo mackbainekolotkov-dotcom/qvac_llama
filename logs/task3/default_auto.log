@@ -1,0 +1,54 @@
+0.00.123.917 I cmn          init: llama threadpool init, n_threads = 4
+0.00.137.352 I common_log_mmproj_devices: projector device: auto | language model device: auto (-ngl 99)
+0.00.137.770 W load_tensors: ffn up/down are swapped
+0.00.182.094 I mtmd_cli_context: chat template example:
+<|im_start|>You are a helpful assistant
+
+User: Hello<end_of_utterance>
+Assistant: Hi there<end_of_utterance>
+User: How are you?<end_of_utterance>
+Assistant:
+0.00.182.097 I main: loading model: models/qvac/gguf/smolvlm/SmolVLM-256M-Instruct-f16.gguf
+0.00.182.215 W WARN: This is an experimental CLI for testing multimodal capability.
+0.00.182.216 W       For normal use cases, please use the standard llama-cli
+0.00.232.917 I encoding mtmd batch, n_chunks = 1 (done = 1, total = 39)
+0.00.307.980 I mtmd batch encoding done in 75 ms
+0.00.315.305 I encoding mtmd batch, n_chunks = 1 (done = 3, total = 39)
+0.00.369.835 I mtmd batch encoding done in 55 ms
+0.00.377.096 I encoding mtmd batch, n_chunks = 1 (done = 5, total = 39)
+0.00.431.487 I mtmd batch encoding done in 54 ms
+0.00.439.055 I encoding mtmd batch, n_chunks = 1 (done = 7, total = 39)
+0.00.493.814 I mtmd batch encoding done in 55 ms
+0.00.501.495 I encoding mtmd batch, n_chunks = 1 (done = 9, total = 39)
+0.00.556.139 I mtmd batch encoding done in 55 ms
+0.00.563.999 I encoding mtmd batch, n_chunks = 1 (done = 11, total = 39)
+0.00.618.725 I mtmd batch encoding done in 54 ms
+0.00.626.540 I encoding mtmd batch, n_chunks = 1 (done = 13, total = 39)
+0.00.681.768 I mtmd batch encoding done in 56 ms
+0.00.689.940 I encoding mtmd batch, n_chunks = 1 (done = 15, total = 39)
+0.00.744.682 I mtmd batch encoding done in 54 ms
+0.00.753.019 I encoding mtmd batch, n_chunks = 1 (done = 17, total = 39)
+0.00.807.715 I mtmd batch encoding done in 54 ms
+0.00.816.174 I encoding mtmd batch, n_chunks = 1 (done = 19, total = 39)
+0.00.870.734 I mtmd batch encoding done in 54 ms
+0.00.879.330 I encoding mtmd batch, n_chunks = 1 (done = 21, total = 39)
+0.00.934.021 I mtmd batch encoding done in 55 ms
+0.00.942.657 I encoding mtmd batch, n_chunks = 1 (done = 23, total = 39)
+0.00.997.340 I mtmd batch encoding done in 55 ms
+0.01.006.428 I encoding mtmd batch, n_chunks = 1 (done = 25, total = 39)
+0.01.061.577 I mtmd batch encoding done in 55 ms
+0.01.070.690 I encoding mtmd batch, n_chunks = 1 (done = 27, total = 39)
+0.01.125.369 I mtmd batch encoding done in 55 ms
+0.01.134.583 I encoding mtmd batch, n_chunks = 1 (done = 29, total = 39)
+0.01.189.349 I mtmd batch encoding done in 55 ms
+0.01.198.696 I encoding mtmd batch, n_chunks = 1 (done = 31, total = 39)
+0.01.253.483 I mtmd batch encoding done in 55 ms
+0.01.262.992 I encoding mtmd batch, n_chunks = 1 (done = 33, total = 39)
+0.01.317.789 I mtmd batch encoding done in 55 ms
+0.01.327.452 I encoding mtmd batch, n_chunks = 1 (done = 35, total = 39)
+0.01.382.224 I mtmd batch encoding done in 55 ms
+0.01.392.054 I encoding mtmd batch, n_chunks = 1 (done = 37, total = 39)
+0.01.447.182 I mtmd batch encoding done in 55 ms
+
+ The image is a table with two columns and three rows. The table has a title at the top, which is "B" and is followed by a number "10". The first column is labeled "Column-major" and the second column is labeled "Column-major". The table is structured with the following
+

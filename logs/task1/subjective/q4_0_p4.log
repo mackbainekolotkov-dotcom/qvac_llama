@@ -1,0 +1,45 @@
+### 2026-08-31T05:53:27Z
+### cwd: .
+### cmd: build/bin/llama-cli -m models/qvac/gguf/llama-3.2-3b-q4_0.gguf -p A farmer has 17 sheep. All but 9 run away. How many are left? Think step by step. -n 100 -t 8 -ngl 99 --seed 42 -st
+
+
+
+Loading model... |-\|/-\|/-\|/-\|/-\|/-\|/ 
+
+▄▄ ▄▄
+██ ██
+██ ██  ▀▀█▄ ███▄███▄  ▀▀█▄    ▄████ ████▄ ████▄
+██ ██ ▄█▀██ ██ ██ ██ ▄█▀██    ██    ██ ██ ██ ██
+██ ██ ▀█▄██ ██ ██ ██ ▀█▄██ ██ ▀████ ████▀ ████▀
+                                    ██    ██
+                                    ▀▀    ▀▀
+
+build      : b9-9b586d5
+model      : models/qvac/gguf/llama-3.2-3b-q4_0.gguf
+ftype      : Q4_0
+modalities : text
+
+available commands:
+  /exit or Ctrl+C     stop or exit
+  /regen              regenerate the last response
+  /clear              clear the chat history
+  /read <file>        add a text file
+  /glob <pattern>     add text files using globbing pattern
+
+
+
+> A farmer has 17 sheep. All but 9 run away. How many are left? Think step by step.
+To solve this problem, let's break it down step by step.
+
+Initially, the farmer has 17 sheep.
+
+All but 9 run away, which means 9 sheep stay behind.
+
+So, the number of sheep left is 9.
+
+The answer is 9.
+
+[ Prompt: 450.3 t/s | Generation: 50.5 t/s ]
+
+
+Exiting...

@@ -1,0 +1,39 @@
+### 2026-09-01T06:53:24Z
+### cwd: .
+### cmd: ../.venv-convert/bin/python - models/qvac/hf/llama-3.2-3b meta-llama/Llama-3.2-3B-Instruct unsloth/Llama-3.2-3B-Instruct main logs/task1/model_provenance.txt
+
+Fetching 12 files:   0%|          | 0/12 [00:00<?, ?it/s]Couldn't access the Hub to check for update but local file already exists. Defaulting to existing file. (error: 401 Client Error. (Request ID: Root=1-6a967665-74a16da01339834040114790;9f6358c4-084f-49d6-9e12-d2b41d9b608e)
+
+Cannot access gated repo for url https://huggingface.co/meta-llama/Llama-3.2-3B-Instruct/resolve/0cb88a4f764b7a12671c53f0838cd831a0843b95/special_tokens_map.json.
+Access to model meta-llama/Llama-3.2-3B-Instruct is restricted. You must have access to it and be authenticated to access it. Please log in.)
+Couldn't access the Hub to check for update but local file already exists. Defaulting to existing file. (error: 401 Client Error. (Request ID: Root=1-6a967665-5938fd282ccfb7b673372820;047a5ba1-ad73-4ea5-89b3-12e60cfc2713)
+
+Cannot access gated repo for url https://huggingface.co/meta-llama/Llama-3.2-3B-Instruct/resolve/0cb88a4f764b7a12671c53f0838cd831a0843b95/model-00002-of-00002.safetensors.
+Access to model meta-llama/Llama-3.2-3B-Instruct is restricted. You must have access to it and be authenticated to access it. Please log in.)
+Couldn't access the Hub to check for update but local file already exists. Defaulting to existing file. (error: 401 Client Error. (Request ID: Root=1-6a967665-01c7ec7b1ebf7fcb7d4516d3;4fb661de-ba00-448a-9333-b1f60f9849b2)
+
+Cannot access gated repo for url https://huggingface.co/meta-llama/Llama-3.2-3B-Instruct/resolve/0cb88a4f764b7a12671c53f0838cd831a0843b95/generation_config.json.
+Access to model meta-llama/Llama-3.2-3B-Instruct is restricted. You must have access to it and be authenticated to access it. Please log in.)
+Couldn't access the Hub to check for update but local file already exists. Defaulting to existing file. (error: 401 Client Error. (Request ID: Root=1-6a967665-7483997071dc4e5a39e986d1;e228ce15-0d4a-4cad-953d-f4180d3301da)
+
+Cannot access gated repo for url https://huggingface.co/meta-llama/Llama-3.2-3B-Instruct/resolve/0cb88a4f764b7a12671c53f0838cd831a0843b95/model.safetensors.index.json.
+Access to model meta-llama/Llama-3.2-3B-Instruct is restricted. You must have access to it and be authenticated to access it. Please log in.)
+Couldn't access the Hub to check for update but local file already exists. Defaulting to existing file. (error: 401 Client Error. (Request ID: Root=1-6a967665-1b3f43c82f25c99006b1c64f;f22b7fc3-6751-459d-a4b9-ec58fdc65fae)
+
+Cannot access gated repo for url https://huggingface.co/meta-llama/Llama-3.2-3B-Instruct/resolve/0cb88a4f764b7a12671c53f0838cd831a0843b95/config.json.
+Access to model meta-llama/Llama-3.2-3B-Instruct is restricted. You must have access to it and be authenticated to access it. Please log in.)
+Couldn't access the Hub to check for update but local file already exists. Defaulting to existing file. (error: 401 Client Error. (Request ID: Root=1-6a967665-7085056c51658f3e2e9f5530;ecbeb05d-8ddc-4cca-ab25-bb496775d817)
+
+Cannot access gated repo for url https://huggingface.co/meta-llama/Llama-3.2-3B-Instruct/resolve/0cb88a4f764b7a12671c53f0838cd831a0843b95/.gitattributes.
+Access to model meta-llama/Llama-3.2-3B-Instruct is restricted. You must have access to it and be authenticated to access it. Please log in.)
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Couldn't access the Hub to check for update but local file already exists. Defaulting to existing file. (error: 401 Client Error. (Request ID: Root=1-6a967665-573e6ffd4b6f96c74bbaeef9;d843476f-45a8-47f8-ba58-93de05049f62)
+
+Cannot access gated repo for url https://huggingface.co/meta-llama/Llama-3.2-3B-Instruct/resolve/0cb88a4f764b7a12671c53f0838cd831a0843b95/model-00001-of-00002.safetensors.
+Access to model meta-llama/Llama-3.2-3B-Instruct is restricted. You must have access to it and be authenticated to access it. Please log in.)
+Fetching 12 files:   8%|▊         | 1/12 [00:00<00:08,  1.34it/s]
+WARNING: meta-llama/Llama-3.2-3B-Instruct is gated or unavailable (GatedRepoError), falling back to unsloth/Llama-3.2-3B-Instruct
+Fetching 11 files:   0%|          | 0/11 [00:00<?, ?it/s]Fetching 11 files: 100%|██████████| 11/11 [00:00<00:00, 27.57it/s]Fetching 11 files: 100%|██████████| 11/11 [00:00<00:00, 27.52it/s]
+source repo:     unsloth/Llama-3.2-3B-Instruct
+source revision: 006f5dcd1393c3add266de40994ba96225e9689d
+local dir:       models/qvac/hf/llama-3.2-3b

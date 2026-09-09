@@ -1,0 +1,20 @@
+### cmd: cc -O2 scripts/qvac/tools/q4_hqq_zmax_probe.c && ./q4_hqq_zmax_probe
+1. Z_MAX cap: shipped (65504) vs v2 (256), 400 random blocks per ratio
+   ratio      shipped        v2         shipped better
+   20       8.9577e-01  1.1386e+00   97%
+   100      1.7930e-01  1.0579e+00  100%
+   1000     9.1322e-02  5.8465e-01  100%
+   10000    1.1121e-01  1.9495e-01   68%
+   100000   1.1207e-01  1.8515e-01   62%
+   1e+06    9.9611e-02  1.7970e-01   61%
+   1e+07    1.0126e-01  1.8850e-01   65%
+
+2. (max-min)/2 bound on a narrow band far from zero
+   half-band            = 1.55000e-05
+   rmse shipped         = 6.10532e-02
+   rmse v2 encoder      = 4.04210e-01
+   |min|*2^-11 floor    = 4.88281e-01
+
+3. clamping scale up to the smallest f16 normal, range 1e-6..1e6
+   rmse no lower clamp  = 9.58971e+02
+   rmse clamp to normal = 5.33328e+05

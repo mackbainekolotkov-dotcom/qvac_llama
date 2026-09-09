@@ -1,0 +1,39 @@
+### 2026-08-31T05:53:04Z
+### cwd: .
+### cmd: build/bin/llama-cli -m models/qvac/gguf/llama-3.2-3b-q4_0.gguf -p What is bitcoin? -n 100 -t 8 -ngl 99 --seed 42 -st
+
+
+
+Loading model... |-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/ 
+
+▄▄ ▄▄
+██ ██
+██ ██  ▀▀█▄ ███▄███▄  ▀▀█▄    ▄████ ████▄ ████▄
+██ ██ ▄█▀██ ██ ██ ██ ▄█▀██    ██    ██ ██ ██ ██
+██ ██ ▀█▄██ ██ ██ ██ ▀█▄██ ██ ▀████ ████▀ ████▀
+                                    ██    ██
+                                    ▀▀    ▀▀
+
+build      : b9-9b586d5
+model      : models/qvac/gguf/llama-3.2-3b-q4_0.gguf
+ftype      : Q4_0
+modalities : text
+
+available commands:
+  /exit or Ctrl+C     stop or exit
+  /regen              regenerate the last response
+  /clear              clear the chat history
+  /read <file>        add a text file
+  /glob <pattern>     add text files using globbing pattern
+
+
+
+> What is bitcoin?
+Bitcoin is a digital or virtual currency that uses cryptography for security and is decentralized, meaning it's not controlled by any government or financial institution. It was created in 2009 by an individual or group of individuals using the pseudonym Satoshi Nakamoto.
+
+Bitcoin is based on a peer-to-peer network that allows users to send and receive funds without the need for intermediaries like banks. Transactions are recorded on a public ledger called the blockchain, which helps to prevent counterfeiting and ensures the integrity of the
+
+[ Prompt: 99.6 t/s | Generation: 39.6 t/s ]
+
+
+Exiting...

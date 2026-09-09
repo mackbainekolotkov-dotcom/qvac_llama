@@ -1,0 +1,44 @@
+### 2026-08-30T12:55:56Z
+### cwd: .
+### cmd: build/bin/llama-cli -m models/qvac/gguf/llama-3.2-3b-q4_0.gguf -p What is bitcoin? -n 100 -t 8 -ngl 0 --seed 42 -st
+
+
+
+Loading model... |-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/ 
+
+▄▄ ▄▄
+██ ██
+██ ██  ▀▀█▄ ███▄███▄  ▀▀█▄    ▄████ ████▄ ████▄
+██ ██ ▄█▀██ ██ ██ ██ ▄█▀██    ██    ██ ██ ██ ██
+██ ██ ▀█▄██ ██ ██ ██ ▀█▄██ ██ ▀████ ████▀ ████▀
+                                    ██    ██
+                                    ▀▀    ▀▀
+
+build      : b5-d47e758
+model      : models/qvac/gguf/llama-3.2-3b-q4_0.gguf
+ftype      : Q4_0
+modalities : text
+
+available commands:
+  /exit or Ctrl+C     stop or exit
+  /regen              regenerate the last response
+  /clear              clear the chat history
+  /read <file>        add a text file
+  /glob <pattern>     add text files using globbing pattern
+
+
+
+> What is bitcoin?
+Bitcoin is a digital or virtual currency that uses cryptography for security and is decentralized, meaning it's not controlled by any government or financial institution. It was created in 2009 by an individual or group of individuals using the pseudonym Satoshi Nakamoto.
+
+Here's a brief overview of how bitcoin works:
+
+**Key characteristics:**
+
+1. **Decentralized**: Bitcoin is not issued or controlled by a central authority, such as a government or bank.
+2. **Digital**: Bitcoin exists only in digital
+
+[ Prompt: 91.9 t/s | Generation: 58.4 t/s ]
+
+
+Exiting...

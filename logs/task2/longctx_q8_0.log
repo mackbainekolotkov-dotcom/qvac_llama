@@ -1,0 +1,35 @@
+
+
+Loading model... |-\|/- 
+
+▄▄ ▄▄
+██ ██
+██ ██  ▀▀█▄ ███▄███▄  ▀▀█▄    ▄████ ████▄ ████▄
+██ ██ ▄█▀██ ██ ██ ██ ▄█▀██    ██    ██ ██ ██ ██
+██ ██ ▀█▄██ ██ ██ ██ ▀█▄██ ██ ▀████ ████▀ ████▀
+                                    ██    ██
+                                    ▀▀    ▀▀
+
+build      : b5-d47e758
+model      : models/qvac/gguf/llama-3.2-3b-q4_hqq.gguf
+ftype      : Q4_HQQ - 5.0 bpw
+modalities : text
+
+available commands:
+  /exit or Ctrl+C     stop or exit
+  /regen              regenerate the last response
+  /clear              clear the chat history
+  /read <file>        add a text file
+  /glob <pattern>     add text files using globbing pattern
+
+
+
+> IMPORTANT FACT: the access code for the Zurich vault is 84-QUARTZ-1791.
+
+The quarterly logistics review covered warehouse throughput, pallet turnover, carrier on-time rates, and cold chain compliance across the northern corridor. The quarterly logistics review covered warehouse throughput, pallet turnover, carrier on-time rates, and cold chain compliance across the northern corridor. The quarterly logistics review covered warehouse throughput, pallet turnover, carrier on-time rates, and cold cha ... (truncated)
+84-QUARTZ-1791
+
+[ Prompt: 60.8 t/s | Generation: 15.3 t/s ]
+
+
+Exiting...

@@ -1,0 +1,28 @@
+### 2026-08-31T05:40:46Z
+### cwd: .
+### cmd: build/bin/llama-perplexity -m models/qvac/gguf/llama-3.2-3b-f16.gguf -f models/qvac/data/wikitext-2-raw/wiki.test.raw -c 512 --chunks 40 -t 8 -ngl 0
+
+0.02.067.164 I cmn          init: llama threadpool init, n_threads = 8
+0.03.469.767 I 
+0.03.469.889 I system_info: n_threads = 8 (n_threads_batch = 8) / 10 | MTL : EMBED_LIBRARY = 1 | CPU : NEON = 1 | ARM_FMA = 1 | FP16_VA = 1 | MATMUL_INT8 = 1 | DOTPROD = 1 | SME = 1 | SME2 = 1 | ACCELERATE = 1 | REPACK = 1 | 
+0.03.469.938 I perplexity: tokenizing the input ..
+0.03.548.834 I perplexity: tokenization took 78.902 ms
+0.03.548.934 I perplexity: calculating perplexity over 40 chunks, n_ctx=512, batch_size=2048, n_seq=4
+0.22.433.447 I perplexity: 18.88 seconds per pass - ETA 3.13 minutes
+[1]5.2874,[2]7.0222,[3]8.1875,[4]8.6657,[5]9.3359,[6]9.7281,[7]10.1680,[8]10.9114,[9]11.9344,[10]12.1935,[11]12.3560,[12]12.6661,[13]13.2620,[14]12.5551,[15]12.4394,[16]12.0346,[17]11.8439,[18]12.0868,[19]11.8683,[20]11.6388,[21]11.6852,[22]11.3598,[23]11.0530,[24]10.8717,[25]10.5659,[26]10.4802,[27]10.3358,[28]10.2374,[29]10.3526,[30]10.3403,[31]10.3929,[32]10.3268,[33]10.3570,[34]10.4071,[35]10.4928,[36]10.6435,[37]10.5543,[38]10.6128,[39]10.5591,[40]10.5709,
+5.35.182.387 I Final estimate: PPL = 10.5709 +/- 0.28354
+
+### 2026-08-31T05:51:20Z
+### cwd: .
+### cmd: build/bin/llama-perplexity -m models/qvac/gguf/llama-3.2-3b-f16.gguf -f models/qvac/data/wikitext-2-raw/wiki.test.raw -c 512 --chunks 40 -t 8 -ngl 0
+
+0.02.383.885 I cmn          init: llama threadpool init, n_threads = 8
+0.05.219.108 I 
+0.05.219.754 I system_info: n_threads = 8 (n_threads_batch = 8) / 10 | MTL : EMBED_LIBRARY = 1 | CPU : NEON = 1 | ARM_FMA = 1 | FP16_VA = 1 | MATMUL_INT8 = 1 | DOTPROD = 1 | SME = 1 | SME2 = 1 | ACCELERATE = 1 | REPACK = 1 | 
+0.05.219.917 I perplexity: tokenizing the input ..
+0.05.362.290 I perplexity: tokenization took 142.359 ms
+0.05.362.420 I perplexity: calculating perplexity over 40 chunks, n_ctx=512, batch_size=2048, n_seq=4
+0.49.747.337 I perplexity: 44.38 seconds per pass - ETA 7.38 minutes
+[1]5.2874,[2]7.0222,[3]8.1875,[4]8.6657,[5]9.3359,[6]9.7281,[7]10.1680,[8]10.9114,[9]11.9344,[10]12.1935,[11]12.3560,[12]12.6661,[13]13.2620,[14]12.5551,[15]12.4394,[16]12.0346,[17]11.8439,[18]12.0868,[19]11.8683,[20]11.6388,[21]11.6852,[22]11.3598,[23]11.0530,[24]10.8717,[25]10.5659,[26]10.4802,[27]10.3358,[28]10.2374,[29]10.3526,[30]10.3403,[31]10.3929,[32]10.3268,[33]10.3570,[34]10.4071,[35]10.4928,[36]10.6435,[37]10.5543,[38]10.6128,[39]10.5591,[40]10.5709,
+10.15.693.502 I Final estimate: PPL = 10.5709 +/- 0.28354
+

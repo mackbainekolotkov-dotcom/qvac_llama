@@ -1,0 +1,43 @@
+### 2026-08-31T05:53:37Z
+### cwd: .
+### cmd: build/bin/llama-cli -m models/qvac/gguf/llama-3.2-3b-q4_1.gguf -p What is bitcoin? -n 100 -t 8 -ngl 99 --seed 42 -st
+
+
+
+Loading model... |-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\| 
+
+▄▄ ▄▄
+██ ██
+██ ██  ▀▀█▄ ███▄███▄  ▀▀█▄    ▄████ ████▄ ████▄
+██ ██ ▄█▀██ ██ ██ ██ ▄█▀██    ██    ██ ██ ██ ██
+██ ██ ▀█▄██ ██ ██ ██ ▀█▄██ ██ ▀████ ████▀ ████▀
+                                    ██    ██
+                                    ▀▀    ▀▀
+
+build      : b9-9b586d5
+model      : models/qvac/gguf/llama-3.2-3b-q4_1.gguf
+ftype      : Q4_1
+modalities : text
+
+available commands:
+  /exit or Ctrl+C     stop or exit
+  /regen              regenerate the last response
+  /clear              clear the chat history
+  /read <file>        add a text file
+  /glob <pattern>     add text files using globbing pattern
+
+
+
+> What is bitcoin?
+Bitcoin is a decentralized digital currency that uses cryptography for security and is decentralized, meaning it's not controlled by any government or financial institution. Here's a brief overview:
+
+**Key characteristics:**
+
+1. **Decentralized**: Bitcoin is not issued or controlled by a central authority, such as a government or bank. Transactions are recorded on a public ledger called the blockchain.
+2. **Digital**: Bitcoin exists only in digital form, and transactions are made through the internet.
+3. **Limited supply**:
+
+[ Prompt: 69.7 t/s | Generation: 38.2 t/s ]
+
+
+Exiting...

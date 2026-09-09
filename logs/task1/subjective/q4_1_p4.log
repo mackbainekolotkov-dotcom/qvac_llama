@@ -1,0 +1,44 @@
+### 2026-08-31T05:54:01Z
+### cwd: .
+### cmd: build/bin/llama-cli -m models/qvac/gguf/llama-3.2-3b-q4_1.gguf -p A farmer has 17 sheep. All but 9 run away. How many are left? Think step by step. -n 100 -t 8 -ngl 99 --seed 42 -st
+
+
+
+Loading model... |-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\| 
+
+▄▄ ▄▄
+██ ██
+██ ██  ▀▀█▄ ███▄███▄  ▀▀█▄    ▄████ ████▄ ████▄
+██ ██ ▄█▀██ ██ ██ ██ ▄█▀██    ██    ██ ██ ██ ██
+██ ██ ▀█▄██ ██ ██ ██ ▀█▄██ ██ ▀████ ████▀ ████▀
+                                    ██    ██
+                                    ▀▀    ▀▀
+
+build      : b9-9b586d5
+model      : models/qvac/gguf/llama-3.2-3b-q4_1.gguf
+ftype      : Q4_1
+modalities : text
+
+available commands:
+  /exit or Ctrl+C     stop or exit
+  /regen              regenerate the last response
+  /clear              clear the chat history
+  /read <file>        add a text file
+  /glob <pattern>     add text files using globbing pattern
+
+
+
+> A farmer has 17 sheep. All but 9 run away. How many are left? Think step by step.
+To find out how many sheep are left, let's break down the information step by step:
+
+1. The farmer has 17 sheep in total.
+2. All but 9 run away. This means that 9 sheep stay behind.
+
+Since "all but 9" implies that the rest (the majority) run away, we can infer that the 9 sheep that stay behind are the ones that didn't run away.
+
+So, to find out how many sheep are left, we simply need
+
+[ Prompt: 421.8 t/s | Generation: 38.2 t/s ]
+
+
+Exiting...

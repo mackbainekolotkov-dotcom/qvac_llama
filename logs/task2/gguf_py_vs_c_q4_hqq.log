@@ -1,0 +1,5 @@
+### cmd: python gguf-py/tests/test_quants.py --libggml build/bin/libggml.dylib --type Q4_HQQ
+INFO:test-quants:Testing Q4_HQQ
+INFO:test-quants:Quantization to Q4_HQQ matches exactly ✅
+INFO:test-quants:Dequantization from Q4_HQQ matches exactly ✅
+INFO:test-quants:Dequantization from random f16 data as Q4_HQQ matches exactly ✅

@@ -1,0 +1,56 @@
+### cmd: /usr/bin/time -l llama-cli -m models/qvac/gguf/llama-3.2-3b-q4_1.gguf --no-mmap
+
+
+Loading model... |-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\ 
+
+▄▄ ▄▄
+██ ██
+██ ██  ▀▀█▄ ███▄███▄  ▀▀█▄    ▄████ ████▄ ████▄
+██ ██ ▄█▀██ ██ ██ ██ ▄█▀██    ██    ██ ██ ██ ██
+██ ██ ▀█▄██ ██ ██ ██ ▀█▄██ ██ ▀████ ████▀ ████▀
+                                    ██    ██
+                                    ▀▀    ▀▀
+
+build      : b5-d47e758
+model      : models/qvac/gguf/llama-3.2-3b-q4_1.gguf
+ftype      : Q4_1
+modalities : text
+
+available commands:
+  /exit or Ctrl+C     stop or exit
+  /regen              regenerate the last response
+  /clear              clear the chat history
+  /read <file>        add a text file
+  /glob <pattern>     add text files using globbing pattern
+
+
+
+> What is bitcoin?
+Bitcoin is a decentralized digital currency that uses cryptography for security and is decentralized, meaning it's not controlled by any government or financial institution. It was created in 2009 by an anonymous individual or group using the pseudonym Satoshi Nakamoto.
+
+Here's a brief overview of how it works:
+
+1. **Decentralized network**: Bitcoin is stored on a public ledger called the blockchain, which is maintained by a network of computers around the world. This decentralized network allows for secure, transparent, and tam
+
+[ Prompt: 38.2 t/s | Generation: 48.2 t/s ]
+
+
+Exiting...
+       10.23 real        23.56 user         8.03 sys
+          9457025024  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+             3952195  page reclaims
+                  56  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                 179  messages sent
+                 178  messages received
+                   0  signals received
+                 389  voluntary context switches
+               64869  involuntary context switches
+        409785201131  instructions retired
+        102073045660  cycles elapsed
+         18025969104  peak memory footprint

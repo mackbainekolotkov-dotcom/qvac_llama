@@ -1,0 +1,72 @@
+
+
+Loading model... |-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/- 
+
+▄▄ ▄▄
+██ ██
+██ ██  ▀▀█▄ ███▄███▄  ▀▀█▄    ▄████ ████▄ ████▄
+██ ██ ▄█▀██ ██ ██ ██ ▄█▀██    ██    ██ ██ ██ ██
+██ ██ ▀█▄██ ██ ██ ██ ▀█▄██ ██ ▀████ ████▀ ████▀
+                                    ██    ██
+                                    ▀▀    ▀▀
+
+build      : b9-9b586d5
+model      : models/qvac/gguf/llama-3.2-3b-q4_hqq.gguf
+ftype      : Q4_HQQ - 5.0 bpw
+modalities : text
+
+available commands:
+  /exit or Ctrl+C     stop or exit
+  /regen              regenerate the last response
+  /clear              clear the chat history
+  /read <file>        add a text file
+  /glob <pattern>     add text files using globbing pattern
+
+
+
+> Write a Python function that reverses a list.
+## Reversing a List in Python
+
+You can use slicing to reverse a list in Python. Here's a function that accomplishes this:
+
+```python
+def reverse_list(input_list):
+    """
+    Reverses the order of elements in a given list.
+
+    Args:
+        input_list (list): The list to be reversed.
+
+    Returns:
+        list: The reversed list.
+    """
+    return input_list[::-1]
+```
+
+### Example Usage:
+
+```python
+# Create a sample list
+my_list = [1, 2, 3, 4, 5]
+
+# Reverse the list
+reversed_list = reverse_list(my_list)
+
+# Print the original and reversed lists
+print("Original List:", my_list)
+print("Reversed List:", reversed_list)
+```
+
+When you run this code, it will output:
+
+```
+Original List: [1, 2, 3, 4, 5]
+Reversed List: [5, 4, 3, 2, 1]
+```
+
+Alternatively, you can use the `re
+
+[ Prompt: 356.7 t/s | Generation: 35.7 t/s ]
+
+
+Exiting...

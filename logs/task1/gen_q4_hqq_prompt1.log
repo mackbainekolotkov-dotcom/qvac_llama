@@ -1,0 +1,41 @@
+### 2026-08-30T12:56:33Z
+### cwd: .
+### cmd: build/bin/llama-cli -m models/qvac/gguf/llama-3.2-3b-q4_hqq.gguf -p What is bitcoin? -n 100 -t 8 -ngl 0 --seed 42 -st
+
+
+
+Loading model... |-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/ 
+
+▄▄ ▄▄
+██ ██
+██ ██  ▀▀█▄ ███▄███▄  ▀▀█▄    ▄████ ████▄ ████▄
+██ ██ ▄█▀██ ██ ██ ██ ▄█▀██    ██    ██ ██ ██ ██
+██ ██ ▀█▄██ ██ ██ ██ ▀█▄██ ██ ▀████ ████▀ ████▀
+                                    ██    ██
+                                    ▀▀    ▀▀
+
+build      : b5-d47e758
+model      : models/qvac/gguf/llama-3.2-3b-q4_hqq.gguf
+ftype      : Q4_HQQ - 5.0 bpw
+modalities : text
+
+available commands:
+  /exit or Ctrl+C     stop or exit
+  /regen              regenerate the last response
+  /clear              clear the chat history
+  /read <file>        add a text file
+  /glob <pattern>     add text files using globbing pattern
+
+
+
+> What is bitcoin?
+Bitcoin is a digital currency that uses cryptography to secure and verify transactions. It was created in 2009 by an anonymous individual or group using the pseudonym Satoshi Nakamoto. Bitcoin is decentralized, meaning that it is not controlled by any government or financial institution, and transactions are recorded on a public ledger called the blockchain.
+
+Here's a brief overview of how bitcoin works:
+
+1. **Mining**: New bitcoin are created through a process called mining, which involves solving complex mathematical problems using powerful computers. Min
+
+[ Prompt: 44.6 t/s | Generation: 38.6 t/s ]
+
+
+Exiting...

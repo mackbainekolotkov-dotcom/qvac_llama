@@ -1,0 +1,126 @@
+ f32 vec_dot n=   1:                 ok (ref=2.479270 got=2.479270 err=0.000000)
+ f32 vec_dot n=   2:                 ok (ref=1.614720 got=1.614720 err=0.000000)
+ f32 vec_dot n=   3:                 ok (ref=2.991421 got=2.991421 err=0.000000)
+ f32 vec_dot n=   5:                 ok (ref=4.455451 got=4.455451 err=0.000000)
+ f32 vec_dot n=   7:                 ok (ref=9.051986 got=9.051986 err=0.000000)
+ f32 vec_dot n=   8:                 ok (ref=8.744895 got=8.744894 err=0.000000)
+ f32 vec_dot n=  15:                 ok (ref=15.422965 got=15.422963 err=0.000000)
+ f32 vec_dot n=  16:                 ok (ref=17.999584 got=17.999584 err=0.000000)
+ f32 vec_dot n=  17:                 ok (ref=18.817072 got=18.817070 err=0.000000)
+ f32 vec_dot n=  31:                 ok (ref=32.782387 got=32.782387 err=0.000000)
+ f32 vec_dot n=  33:                 ok (ref=36.324463 got=36.324463 err=0.000000)
+ f32 vec_dot n=  63:                 ok (ref=69.161514 got=69.161530 err=0.000000)
+ f32 vec_dot n=  67:                 ok (ref=73.810135 got=73.810135 err=0.000000)
+ f32 vec_dot n= 127:                 ok (ref=139.400009 got=139.400024 err=0.000000)
+ f32 vec_dot n= 129:                 ok (ref=141.068314 got=141.068314 err=0.000000)
+ f32 vec_dot n= 193:                 ok (ref=210.608597 got=210.608597 err=0.000000)
+ f32 vec_dot n= 255:                 ok (ref=278.956635 got=278.956635 err=0.000000)
+ f32 vec_dot n=1023:                 ok (ref=1114.481567 got=1114.481567 err=0.000000)
+Testing f32
+Testing f16
+  f16 absolute quantization error:    ok (0.000004)
+  f16 reference implementation error: ok (0.000000)
+  f16 dot product error:              ok (0.000180)
+Testing q4_0
+ q4_0 absolute quantization error:    ok (0.001121)
+ q4_0 reference implementation error: ok (0.000000)
+ q4_0 dot product error:              ok (0.001142)
+Testing q4_1
+ q4_1 absolute quantization error:    ok (0.001144)
+ q4_1 reference implementation error: ok (0.000000)
+ q4_1 dot product error:              ok (0.007931)
+Testing q5_0
+ q5_0 absolute quantization error:    ok (0.000591)
+ q5_0 reference implementation error: ok (0.000000)
+ q5_0 dot product error:              ok (0.001353)
+Testing q5_1
+ q5_1 absolute quantization error:    ok (0.000556)
+ q5_1 reference implementation error: ok (0.000000)
+ q5_1 dot product error:              ok (0.001511)
+Testing q8_0
+ q8_0 absolute quantization error:    ok (0.000074)
+ q8_0 reference implementation error: ok (0.000000)
+ q8_0 dot product error:              ok (0.000092)
+Testing q8_1
+Testing q2_K
+ q2_K absolute quantization error:    ok (0.004672)
+ q2_K reference implementation error: ok (0.000000)
+ q2_K dot product error:              ok (0.010715)
+Testing q3_K
+ q3_K absolute quantization error:    ok (0.002510)
+ q3_K reference implementation error: ok (0.000000)
+ q3_K dot product error:              ok (0.016686)
+Testing q4_K
+ q4_K absolute quantization error:    ok (0.000982)
+ q4_K reference implementation error: ok (0.000000)
+ q4_K dot product error:              ok (0.002318)
+Testing q5_K
+ q5_K absolute quantization error:    ok (0.000531)
+ q5_K reference implementation error: ok (0.000000)
+ q5_K dot product error:              ok (0.001039)
+Testing q6_K
+ q6_K absolute quantization error:    ok (0.000261)
+ q6_K reference implementation error: ok (0.000000)
+ q6_K dot product error:              ok (0.000215)
+Testing q8_K
+Testing iq2_xxs
+Testing iq2_xs
+Testing iq3_xxs
+Testing iq1_s
+Testing iq4_nl
+iq4_nl absolute quantization error:    ok (0.001296)
+iq4_nl reference implementation error: ok (0.000000)
+iq4_nl dot product error:              ok (0.005155)
+Testing iq3_s
+Testing iq2_s
+Testing iq4_xs
+iq4_xs absolute quantization error:    ok (0.001256)
+iq4_xs reference implementation error: ok (0.000000)
+iq4_xs dot product error:              ok (0.002499)
+Testing i8
+Testing i16
+Testing i32
+Testing i64
+Testing f64
+Testing iq1_m
+Testing bf16
+ bf16 absolute quantization error:    ok (0.000036)
+ bf16 reference implementation error: ok (0.000000)
+ bf16 dot product error:              ok (0.000169)
+Testing tq1_0
+tq1_0 absolute quantization error:    ok (0.008681)
+tq1_0 reference implementation error: ok (0.000000)
+tq1_0 dot product error:              ok (0.141345)
+Testing tq2_0
+tq2_0 absolute quantization error:    ok (0.008681)
+tq2_0 reference implementation error: ok (0.000000)
+tq2_0 dot product error:              ok (0.141345)
+Testing mxfp4
+mxfp4 absolute quantization error:    ok (0.001881)
+mxfp4 reference implementation error: ok (0.000000)
+mxfp4 dot product error:              ok (0.005676)
+Testing nvfp4
+nvfp4 absolute quantization error:    ok (0.002337)
+nvfp4 reference implementation error: ok (0.000000)
+nvfp4 dot product error:              ok (0.019774)
+Testing q1_0
+ q1_0 absolute quantization error:    ok (0.009696)
+ q1_0 reference implementation error: ok (0.000000)
+ q1_0 dot product error:              ok (0.211374)
+Testing q2_0
+ q2_0 absolute quantization error:    ok (0.008672)
+ q2_0 reference implementation error: ok (0.000000)
+ q2_0 dot product error:              ok (0.140698)
+Testing q4_hqq
+q4_hqq absolute quantization error:    ok (0.001144)
+q4_hqq reference implementation error: ok (0.000000)
+q4_hqq dot product error:              ok (0.007968)
+q4_hqq edge case uniform noise                      ok (non-finite=0 rmse=0.000784255 q4_1 rmse=0.000784046)
+q4_hqq edge case gaussian                           ok (non-finite=0 rmse=0.00174958 q4_1 rmse=0.00175001)
+q4_hqq edge case all zero                           ok (non-finite=0 rmse=0 q4_1 rmse=0)
+q4_hqq edge case constant non-zero                  ok (non-finite=0 rmse=2.5894e-06 q4_1 rmse=2.5894e-06)
+q4_hqq edge case single outlier                     ok (non-finite=0 rmse=0.000523103 q4_1 rmse=0.000505524)
+q4_hqq edge case extreme dynamic range              ok (non-finite=0 rmse=21.1895 q4_1 rmse=nan)
+q4_hqq edge case denormals                          ok (non-finite=0 rmse=0 q4_1 rmse=0)
+q4_hqq edge case tiny range (fp16 scale overflow)   ok (non-finite=0 rmse=0.00135001 q4_1 rmse=0)
+0 tests failed

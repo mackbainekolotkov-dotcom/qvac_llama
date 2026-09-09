@@ -1,0 +1,37 @@
+### 2026-08-31T05:54:11Z
+### cwd: .
+### cmd: build/bin/llama-cli -m models/qvac/gguf/llama-3.2-3b-q4_1.gguf -p Summarize the plot of Romeo and Juliet in exactly two sentences. -n 100 -t 8 -ngl 99 --seed 42 -st
+
+
+
+Loading model... |-\|/-\|/-\|/-\|/-\|/-\| 
+
+▄▄ ▄▄
+██ ██
+██ ██  ▀▀█▄ ███▄███▄  ▀▀█▄    ▄████ ████▄ ████▄
+██ ██ ▄█▀██ ██ ██ ██ ▄█▀██    ██    ██ ██ ██ ██
+██ ██ ▀█▄██ ██ ██ ██ ▀█▄██ ██ ▀████ ████▀ ████▀
+                                    ██    ██
+                                    ▀▀    ▀▀
+
+build      : b9-9b586d5
+model      : models/qvac/gguf/llama-3.2-3b-q4_1.gguf
+ftype      : Q4_1
+modalities : text
+
+available commands:
+  /exit or Ctrl+C     stop or exit
+  /regen              regenerate the last response
+  /clear              clear the chat history
+  /read <file>        add a text file
+  /glob <pattern>     add text files using globbing pattern
+
+
+
+> Summarize the plot of Romeo and Juliet in exactly two sentences.
+In the tragic love story of Romeo and Juliet, two young lovers from feuding families in Verona, Italy, fall in love and ultimately decide to marry in secret, but their happiness is short-lived as their families' hatred for each other leads to a series of tragic events. The star-crossed lovers' fate is sealed when Romeo kills Juliet's cousin in a duel, leading to his banishment, and ultimately, the tragic deaths of both Romeo and Juliet.
+
+[ Prompt: 407.7 t/s | Generation: 35.9 t/s ]
+
+
+Exiting...
