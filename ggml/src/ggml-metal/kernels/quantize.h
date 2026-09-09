@@ -99,6 +99,45 @@ void quantize_q4_1(device const float * src, device block_q4_1 & dst) {
     }
 }
 
+void quantize_q4_hqq(device const float * src, device block_q4_hqq & dst) {
+#pragma METAL fp math_mode(safe)
+    float min = FLT_MAX;
+    float max = -FLT_MAX;
+
+    for (int j = 0; j < QK4_HQQ; j++) {
+        const float v = src[j];
+        if (min > v) min = v;
+        if (max < v) max = v;
+    }
+
+    float scale = max > min ? 15.0f/(max - min) : 1.0f;
+
+    // keep both params inside the f16 range, zero is -min*scale
+    const float amin = fabs(min);
+    const float smax = amin > 0.0f ? 65504.0f/amin : 65504.0f;
+
+    if (scale > smax)     scale = smax;
+    if (scale > 65504.0f) scale = 65504.0f;
+
+    dst.scale = scale;
+    dst.zero  = -min*scale;
+
+    const float s = (float) dst.scale;
+    const float z = (float) dst.zero;
+
+    for (int j = 0; j < QK4_HQQ/2; ++j) {
+        const float x0 = src[0          + j]*s + z;
+        const float x1 = src[QK4_HQQ/2 + j]*s + z;
+
+        const uint8_t xi0 = MIN(15, MAX(0, (int) round(x0)));
+        const uint8_t xi1 = MIN(15, MAX(0, (int) round(x1)));
+
+        dst.qs[j]  = xi0;
+        dst.qs[j] |= xi1 << 4;
+    }
+}
+
+
 void quantize_q5_0(device const float * src, device block_q5_0 & dst) {
 #pragma METAL fp math_mode(safe)
     float amax = 0.0f; // absolute max

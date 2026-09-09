@@ -33,6 +33,9 @@
 #define N_R0_Q4_1 4
 #define N_SG_Q4_1 2
 
+#define N_R0_Q4_HQQ 4
+#define N_SG_Q4_HQQ 2
+
 #define N_R0_Q5_0 4
 #define N_SG_Q5_0 2
 

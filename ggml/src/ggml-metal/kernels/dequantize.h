@@ -199,6 +199,43 @@ void dequantize_q4_1_t4(device const block_q4_1 * xb, short il, thread type4 & r
 }
 
 template <typename type4x4>
+void dequantize_q4_hqq(device const block_q4_hqq * xb, short il, thread type4x4 & reg) {
+    device const uint16_t * qs = ((device const uint16_t *)xb + 2);
+    const float is = xb->scale != 0.0h ? 1.0f/(float) xb->scale : 0.0f;
+    const float d1 = il ? (is / 16.f) : is;
+    const float d2 = d1 / 256.f;
+    const float  m = -((float) xb->zero)*is;
+    const ushort mask0 = il ? 0x00F0 : 0x000F;
+    const ushort mask1 = mask0 << 8;
+
+    float4x4 reg_f;
+
+    for (int i = 0; i < 8; i++) {
+        reg_f[i/2][2*(i%2) + 0] = ((qs[i] & mask0) * d1) + m;
+        reg_f[i/2][2*(i%2) + 1] = ((qs[i] & mask1) * d2) + m;
+    }
+
+    reg = (type4x4) reg_f;
+}
+
+template <typename type4>
+void dequantize_q4_hqq_t4(device const block_q4_hqq * xb, short il, thread type4 & reg) {
+    device const uint16_t * qs = ((device const uint16_t *)xb + 2);
+    const float is = xb->scale != 0.0h ? 1.0f/(float) xb->scale : 0.0f;
+    const float d1 = (il/4) ? (is / 16.f) : is;
+    const float d2 = d1 / 256.f;
+    const float  m = -((float) xb->zero)*is;
+    const ushort mask0 = (il/4) ? 0x00F0 : 0x000F;
+    const ushort mask1 = mask0 << 8;
+
+    for (int i = 0; i < 2; i++) {
+        reg[2*i + 0] = d1 * (qs[2*(il%4) + i] & mask0) + m;
+        reg[2*i + 1] = d2 * (qs[2*(il%4) + i] & mask1) + m;
+    }
+}
+
+
+template <typename type4x4>
 void dequantize_q5_0(device const block_q5_0 * xb, short il, thread type4x4 & reg) {
     device const uint16_t * qs = ((device const uint16_t *)xb + 3);
     const float d = xb->d;
