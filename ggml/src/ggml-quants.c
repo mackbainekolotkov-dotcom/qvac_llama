@@ -187,12 +187,69 @@ void quantize_row_q4_1_ref(const float * GGML_RESTRICT x, block_q4_1 * GGML_REST
 // largest value representable in f16, both params must stay below it
 #define Q4_HQQ_F16_MAX 65504.0f
 
+// real hqq refines the zero point under an lp loss with p < 1, see arxiv 2402.xxxxx and
+// the reference implementation in mobiusml/hqq. the scale and the block layout do not change,
+// so only this encoder differs. off by default, set GGML_Q4_HQQ_OPT=1 to enable
+#define Q4_HQQ_OPT_ITERS 20
+#define Q4_HQQ_OPT_P     0.7f
+#define Q4_HQQ_OPT_BETA  10.0f
+#define Q4_HQQ_OPT_KAPPA 1.01f
+
+static bool q4_hqq_use_optimizer(void) {
+    static int cached = -1;
+    if (cached < 0) {
+        const char * env = getenv("GGML_Q4_HQQ_OPT");
+        cached = env && env[0] != '0' ? 1 : 0;
+    }
+    return cached == 1;
+}
+
+// generalized soft threshold, the proximal step of the lp loss
+static float q4_hqq_shrink(float v, float beta) {
+    const float a = fabsf(v);
+    if (a == 0.0f) {
+        return 0.0f;
+    }
+    const float t = a - powf(a, Q4_HQQ_OPT_P - 1.0f)/beta;
+    return t > 0.0f ? (v < 0.0f ? -t : t) : 0.0f;
+}
+
+// alternate a proximal step on the residual with a closed form update of the zero point
+static float q4_hqq_optimize_zero(const float * x, const uint8_t * q, float scale, float zero) {
+    float beta = Q4_HQQ_OPT_BETA;
+
+    for (int it = 0; it < Q4_HQQ_OPT_ITERS; ++it) {
+        float acc = 0.0f;
+
+        for (int j = 0; j < QK4_HQQ; ++j) {
+            const float w_r = (q[j] - zero)/scale;
+            const float w_e = q4_hqq_shrink(x[j] - w_r, beta);
+
+            acc += q[j] - (x[j] - w_e)*scale;
+        }
+
+        const float next = acc/QK4_HQQ;
+        if (!isfinite(next)) {
+            break;
+        }
+
+        zero  = next;
+        beta *= Q4_HQQ_OPT_KAPPA;
+    }
+
+    return zero;
+}
+
 void quantize_row_q4_hqq_ref(const float * GGML_RESTRICT x, block_q4_hqq * GGML_RESTRICT y, int64_t k) {
     const int qk = QK4_HQQ;
 
     assert(k % qk == 0);
 
     const int nb = k / qk;
+
+    const bool optimize = q4_hqq_use_optimizer();
+
+    uint8_t q[QK4_HQQ];
 
     for (int i = 0; i < nb; i++) {
         float min = FLT_MAX;
@@ -216,6 +273,20 @@ void quantize_row_q4_hqq_ref(const float * GGML_RESTRICT x, block_q4_hqq * GGML_
         if (scale > Q4_HQQ_F16_MAX)   scale = Q4_HQQ_F16_MAX;
 
         float zero = -min*scale;
+
+        if (optimize) {
+            const float s0 = GGML_FP16_TO_FP32(GGML_FP32_TO_FP16(scale));
+            const float z0 = GGML_FP16_TO_FP32(GGML_FP32_TO_FP16(zero));
+
+            for (int j = 0; j < qk; ++j) {
+                q[j] = (uint8_t) MIN(15, MAX(0, (int) roundf(x[i*qk + j]*s0 + z0)));
+            }
+
+            const float z = q4_hqq_optimize_zero(x + i*qk, q, s0, z0);
+            if (fabsf(z) <= Q4_HQQ_F16_MAX) {
+                zero = z;
+            }
+        }
 
         y[i].scale = GGML_FP32_TO_FP16(scale);
         y[i].zero  = GGML_FP32_TO_FP16(zero);
