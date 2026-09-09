@@ -829,6 +829,7 @@ ggml_type llama_ftype_get_default_type(llama_ftype ftype) {
     switch (ftype) {
         case LLAMA_FTYPE_MOSTLY_Q4_0: return GGML_TYPE_Q4_0;
         case LLAMA_FTYPE_MOSTLY_Q4_1: return GGML_TYPE_Q4_1;
+        case LLAMA_FTYPE_MOSTLY_Q4_HQQ: return GGML_TYPE_Q4_HQQ;
         case LLAMA_FTYPE_MOSTLY_Q5_0: return GGML_TYPE_Q5_0;
         case LLAMA_FTYPE_MOSTLY_Q5_1: return GGML_TYPE_Q5_1;
         case LLAMA_FTYPE_MOSTLY_Q8_0: return GGML_TYPE_Q8_0;
@@ -1290,6 +1291,15 @@ static void llama_model_quantize_impl(const std::string & fname_inp, const std::
                             }
                             llama_tensor_dequantize_impl(tensor->type, src, (float *) f32_conv_buf.data(), workers, nelements_cur, nthread);
                             f32_data = (const float *) f32_conv_buf.data();
+                        }
+
+                        if (new_type == GGML_TYPE_Q4_HQQ) {
+                            // q4_hqq takes its params from the block min/max, one bad value poisons the block
+                            for (int64_t j = 0; j < nelements_cur; ++j) {
+                                if (!std::isfinite(f32_data[j])) {
+                                    throw std::runtime_error(format("tensor %s has a non-finite value at index %" PRId64, ggml_get_name(tensor), j));
+                                }
+                            }
                         }
 
                         if (work.size() < nrows_cur*row_size_dst) {
