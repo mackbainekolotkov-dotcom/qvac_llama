@@ -165,6 +165,10 @@ struct clip_ctx {
     clip_flash_attn_type flash_attn_type = CLIP_FLASH_ATTN_TYPE_AUTO;
     bool is_allocated = false;
 
+    // true when the caller named a device (-mmdev, --mmproj-backend) instead of asking for auto,
+    // so a partial fallback to the CPU is a broken promise and not just a performance note
+    bool device_requested = false;
+
     bool debug_output_embeddings = false;
 
     // for measuring memory usage
@@ -181,6 +185,7 @@ struct clip_ctx {
     clip_ctx(clip_context_params & ctx_params) {
         flash_attn_type = ctx_params.flash_attn_type;
         no_alloc = ctx_params.no_alloc;
+        device_requested = ctx_params.use_gpu && ctx_params.device != nullptr;
         backend_cpu = ggml_backend_init_by_type(GGML_BACKEND_DEVICE_TYPE_CPU, nullptr);
         if (!backend_cpu) {
             throw std::runtime_error("failed to initialize CPU backend");
@@ -3677,7 +3682,9 @@ struct clip_model_loader {
                 LOG_WRN("%s: please report this on github as an issue\n", __func__);
                 LOG_WRN("%s: *****************************************************************\n", __func__);
                 ctx_clip.flash_attn_type = CLIP_FLASH_ATTN_TYPE_DISABLED;
-                reserve_compute_meta(ctx_clip, batch);
+                // keep the result: the op support report below must describe the graph that
+                // actually runs, not the flash attention one that was just rejected
+                info = reserve_compute_meta(ctx_clip, batch);
             }
         } else {
             info = reserve_compute_meta(ctx_clip, batch);
@@ -3699,6 +3706,19 @@ struct clip_model_loader {
                     unsupported_ops.push_back(op);
                 }
             }
+            // the caller asked for this specific device, so say plainly how much of the
+            // projector actually ended up on it instead of leaving it to be inferred
+            if (ctx_clip.device_requested) {
+                if (unsupported_ops.empty()) {
+                    LOG_INF("%s: projector runs entirely on the requested device %s (%zu ops)\n", __func__,
+                            ggml_backend_name(ctx_clip.backend), info.ops.size());
+                } else {
+                    LOG_WRN("%s: projector falls back to the CPU for %zu of %zu ops, the requested device %s does not support them\n",
+                            __func__, unsupported_ops.size(), info.ops.size(),
+                            ggml_backend_name(ctx_clip.backend));
+                }
+            }
+
             if (!unsupported_ops.empty()) {
                 LOG_WRN("%s: *****************************************************************\n", __func__);
                 LOG_WRN("%s: WARNING: the CLIP graph uses unsupported operators by the backend\n", __func__);
